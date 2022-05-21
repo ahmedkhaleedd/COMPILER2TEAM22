@@ -1,0 +1,145 @@
+﻿@model IEnumerable<CompilerProject2.Models.Token>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<style>
+    body {
+        background-image: url('https://www.desktopbackground.org/download/800x600/2012/06/22/409505_compiler-hd-wallpaper-by-pcbots-png_1440x900_h.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+
+
+    form {
+        width: 100%;
+        height: 400px;
+    }
+
+    .Editor textarea {
+        width: 100%;
+        height: 150px;
+    }
+
+    .FileEditor textarea {
+        width: 100%;
+        height: 280px;
+    }
+
+    .Editor {
+        width: 40%;
+        height: 150px;
+        border: 4px solid black;
+        float: left;
+        margin-left 1200px;
+        color: forestgreen;
+    }
+
+    .FileEditor {
+        width: 45%;
+        height: 70px;
+        border: 4px solid black;
+        float: left;
+        margin-left 1200px;
+        color: forestgreen
+    }
+</style>
+<form method="post" runat="server" enctype="multipart/form-data">
+    <div class="Editor">
+        <textarea name="editorCode">@ViewBag.content</textarea><br />
+        <input type="submit" value="scan" style="floate: left; width 25%;; color: black; background-color: forestgreen" />
+    </div>
+    <div class="FileEditor">
+        <input id="file" type="file" name="file" />
+        <input type="submit" value="scan" style="floate: left; width 25%;; color: black; background-color: forestgreen" />
+    </div>
+</form>
+
+
+<table class="table">
+    <!---
+        <div style="float:left; width:400px;height:200px;border:1px solid black;overflow:auto;">
+            @foreach (var item in Model)
+            {
+
+                if (item.Type != "Error" && item.Type != "newLine")
+                {
+                    <b class="accepted" style="border-bottom:3px solid green;">@Html.DisplayFor(modelItem => item.Name)</b>
+
+                }
+                if (item.Type == "newLine")
+                {
+                    <br/>
+                }
+                if (item.Type == "Error")
+                {
+                    <b class="Error" style="border-bottom:3px solid red;"> @Html.DisplayFor(modelItem => item.Name)</b>
+
+                }
+
+            }
+        </div>
+
+        -->
+    <div class="EditorOut" style="floate:left;width 25%; ; color : forestgreen ">
+    <thead>
+        <tr>
+            <th style="floate:left;width 25%; ; color : forestgreen ">
+                Name
+            </th>
+            <th style="floate:left;width 25%; ; color : forestgreen ">
+                Type
+            </th>
+            <th style="floate:left;width 25%; ; color : forestgreen ">
+                Line
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Type != "Error" && item.Type != "newLine")
+            {
+                <tr style="floate:left;width 25%; ; color : forestgreen ">
+                    <td style="border-bottom:3px solid green;">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Line)
+                    </td>
+                </tr>
+            }
+            if (item.Type == "Error")
+            {
+                <tr style="floate:left;width 25%; ; color : forestgreen ">
+                    <td style="border-bottom:3px solid red;">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Line)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+    </div>
+</table>
+<div>
+    <br />
+    <br />
+    <h2 style="floate:left;width 25%; ; color : forestgreen ;  margin-top :80px;">Total Numbers of Errors: @ViewBag.Errors </h2>
+
+</div>
+
+</html>
